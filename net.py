@@ -14,13 +14,15 @@ class Rigid:
 # pdb.set_trace()
 
 def shum(op=False):
+    # 1 out of 4 possible items
     item = xor_data()
-
+    # forward the item
     f.il = item['data']
     f.hl = [sig(x) for x in np.matmul(np.transpose(f.w_ih), f.il)]
     f.ol = [sig(x) for x in np.matmul(np.transpose(f.w_ho), f.hl)]
     if op:
         print('label:{} guess:{}'.format(item['label'], f.ol))
+    # back propagate the error
     guess = f.ol
     out_err = np.array([abs(l-g) for l,g in zip(item['label'], guess)])
     out_grad = np.array([dx_sig(p) for p in f.ol])
@@ -32,13 +34,14 @@ def shum(op=False):
 
     ho_dlt = [og*hlt for og, hlt in zip([out_grad], np.transpose(f.hl))]
     ih_dlt = [hg*ilt for hg, ilt in zip([h_grad], np.transpose(f.il))]
-
+    # update weights
     f.w_ho += ho_dlt
     f.w_ih += ih_dlt
 
 
-d = 0
 f = Rigid()
+# execute 1000 times
+d = 0
 while d < 1000:
     if d%100 == 4:
         shum(True)
