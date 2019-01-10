@@ -14,9 +14,9 @@ def line_dot(axis, dot_num, incline, const):
 
 
 def xor_data():
-    series = [{'data': [0, 1], 'label': [1]},
-              {'data': [1, 0], 'label': [1]},
-              {'data': [0, 0], 'label': [-1]},
+    series = [{'data': [-1, 1], 'label': [1]},
+              {'data': [1, -1], 'label': [1]},
+              {'data': [-1, -1], 'label': [-1]},
               {'data': [1, 1], 'label': [-1]}
               ]
 
